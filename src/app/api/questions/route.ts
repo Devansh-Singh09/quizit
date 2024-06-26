@@ -9,7 +9,7 @@ export const maxDuration = 500;
 
 export async function POST(req: Request, res: Response) {
   try {
-    const session = await getAuthSession();
+    //const session = await getAuthSession();
     // if (!session?.user) {
     //   return NextResponse.json(
     //     { error: "You must be logged in to create a game." },
@@ -64,7 +64,7 @@ export async function POST(req: Request, res: Response) {
         }
       );
     } else {
-      console.error("elle gpt error", error);
+      console.error("gpt error", error);
       return NextResponse.json(
         { error: "An unexpected error occurred." },
         {
