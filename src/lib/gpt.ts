@@ -1,6 +1,5 @@
-import OpenAI from "openai";
-
-const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY,});
+import { GoogleGenerativeAI, TextPart } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || ' ');
 
  
 interface OutputFormat {
@@ -14,9 +13,10 @@ export async function strict_output(
   default_category: string = "",
   output_value_only: boolean = false,
   model: string = "gpt-3.5-turbo",
+    // model:string= "gemini-1.5-flash",
   temperature: number = 1,
   num_tries: number = 3,
-  verbose: boolean = false
+  verbose: boolean = false,
 ) {
   // if the user input is in a list, we also process the output as a list of json
   const list_input: boolean = Array.isArray(user_prompt);
@@ -41,31 +41,38 @@ export async function strict_output(
  
     // if output_format contains dynamic elements, process it accordingly
     if (dynamic_elements) {
-      output_format_prompt += `\nAny text enclosed by < and > indicates you must generate content to replace it. Example input: Go to <location>, Example output: Go to the garden\nAny output key containing < and > indicates you must generate the key name to replace it. Example input: {'<location>': 'description of location'}, Example output: {school: a place for education}`;
+      output_format_prompt +=`\nAny text enclosed by < and > indicates you must generate content to replace it. Example input: Go to <location>, Example output: Go to the garden\nAny output key containing < and > indicates you must generate the key name to replace it. Example input: {'<location>': 'description of location'}, Example output: {school: a place for education}`;
     }
  
     // if input is in a list format, ask it to generate json in a list
     if (list_input) {
       output_format_prompt += `\nGenerate an array of json, one json for each input element.`;
     }
- 
-    // Use OpenAI to get a response
-    const response = await openai.chat.completions.create({
-      temperature: temperature,
-      model: model,
-      messages: [
-        {
-          role: "system",
-          content: system_prompt + output_format_prompt + error_msg,
-        },
-        { role: "user", content: user_prompt.toString() },
-      ],
-    });
- 
-    let res: string =
-      response.choices[0].message?.content?.replace(/'/g, '"') ?? "";
- 
-    // ensure that we don't replace away apostrophes in text
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+
+    const system_role: TextPart = {
+        text: system_prompt + output_format_prompt + error_msg
+    };
+
+    const user_role: TextPart = {
+        text: user_prompt.toString()
+    };
+
+    const result = await model.generateContent({
+        contents:[
+            {
+                role:"model",
+                parts:[system_role],
+            },{
+                role:"user",
+                parts:[user_role]
+            }
+        ]
+    })
+
+    let res:string = result?.response.text().replace(/'/g, '"') ?? "";
+
     res = res.replace(/(\w)"(\w)/g, "$1'$2");
  
     if (verbose) {
@@ -140,4 +147,3 @@ export async function strict_output(
  
   return [];
 }
- 
