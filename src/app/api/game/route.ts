@@ -108,6 +108,6 @@ export async function POST(req:Request,res:Response) {
         if(error instanceof ZodError){
             return NextResponse.json({error:error.issues},{status:400})
         }
-        return NextResponse.json({error:"Something Wrong (Probably in Generating Question"},{status:502})
+        return NextResponse.json({error:"Something Wrong (Probably in Generating Question"},{status:510})
     }
 }
