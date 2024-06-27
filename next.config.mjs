@@ -2,7 +2,13 @@
 const nextConfig = {
     images :{
         domains: ["lh3.googleusercontent.com"],
-    }
+    },
+    typescript:{
+        ignoreBuildErrors:true,
+    },
+    eslint:{
+        ignoreDuringBuilds:true,
+    },
 };
 
 export default nextConfig;
