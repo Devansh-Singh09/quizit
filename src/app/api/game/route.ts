@@ -49,7 +49,7 @@ export async function POST(req:Request,res:Response) {
         console.log(process.env.API_URL);
         
 
-        const {data}=await axios.post(`${process.env.API_URL as string}/api/questions`,{
+        const {data}=await axios.post(`https://quizit-three.vercel.app/api/questions`,{
             amount,
             topic,
             type,
