@@ -27,6 +27,7 @@ export async function POST(req: Request, res: Response) {
     // }
     const body = await req.json();
     const { amount, topic, type } = quizCreationSchema.parse(body);
+    console.log("hlo");
     let questions: any;
     if (type === "open_ended") {
       questions = await strict_output(
@@ -41,6 +42,7 @@ export async function POST(req: Request, res: Response) {
       );
     } else if (type === "mcq") {
       questions = await strict_output(
+        
         "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words, store all answers and questions and options in a JSON array",
         new Array(amount).fill(
           `You are to generate a random hard mcq question about ${topic}`
@@ -52,7 +54,7 @@ export async function POST(req: Request, res: Response) {
           option2: "option2 with max length of 15 words other than answer",
           option3: "option3 with max length of 15 words other than answer",
         }
-      );
+      );console.log("namaste");
     }
     return NextResponse.json(
       {
