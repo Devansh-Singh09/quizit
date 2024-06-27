@@ -33,7 +33,7 @@ export async function POST(req:Request,res:Response) {
                 topic,
             }
         })
-        await prisma.topicCount.upsert({
+        await prisma.topic_count.upsert({
             where :{ topic},
             create:{
                 topic,

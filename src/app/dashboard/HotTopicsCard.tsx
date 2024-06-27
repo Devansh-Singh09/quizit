@@ -7,7 +7,7 @@ import { text } from 'stream/consumers'
 type Props = {}
 
 const HotTopicsCard =async (props: Props) => {
-  const topics=await prisma.topicCount.findMany({})
+  const topics=await prisma.topic_count.findMany({})
   const formattedTopics = topics.map(topic =>{
     return{
       text : topic.topic,
