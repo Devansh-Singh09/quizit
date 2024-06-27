@@ -5,8 +5,14 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 export const runtime = "nodejs";
-export const maxDuration = 600; // This function can run for a maximum of 5 seconds
-
+export const maxDuration = 60; // This function can run for a maximum of 5 seconds
+export const dynamic = 'force-dynamic';
+ 
+export function GET(request: Request) {
+  return new Response('Vercel', {
+    status: 200,
+  });
+}
 
 export async function POST(req: Request, res: Response) {
   try {
