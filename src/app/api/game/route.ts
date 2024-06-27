@@ -54,6 +54,7 @@ export async function POST(req:Request,res:Response) {
             topic,
             type,
         })
+        console.log("ok");
 
         if(type=="mcq"){
             type mcqQuestion ={
