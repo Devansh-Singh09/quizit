@@ -47,7 +47,7 @@ const QuizCreation = (props: Props) => {
         },{
           onSuccess:({gameId})=>{
             if(form.getValues('type')=='open_ended'){
-              router.push(`/play/mcq/${gameId}`)
+              router.push(`/play/open_ended/${gameId}`)
             }else{
               router.push(`/play/mcq/${gameId}`)
             }
@@ -59,7 +59,7 @@ const QuizCreation = (props: Props) => {
     
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-  <Card className="bg-orange-50 dark:bg-orange-950 border border-orange-500 dark:border-orange-700 shadow-lg transition-all transform hover:scale-105 duration-200">
+  <Card className="bg-white-50 dark:bg-grey-950 border border-black-500 dark:border-black-700 shadow-lg transition-all transform hover:scale-105 duration-200">
     <CardHeader className="bg-orange-500 dark:bg-orange-800 text-white py-4 px-6 rounded-t-lg">
       <CardTitle className="text-2xl font-bold">
         Create Quiz
