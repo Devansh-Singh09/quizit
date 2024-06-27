@@ -66,6 +66,11 @@ model Game {
   @@index([userId], name: "userId")
 }
 
+model TopicCount{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  topic String  @unique
+  count Int
+}
 model Question {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   question          String

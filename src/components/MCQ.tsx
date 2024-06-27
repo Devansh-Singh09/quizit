@@ -45,7 +45,7 @@ const Mcq = ({game}: Props) => {
         return game.questions[questionIndex];
       }, [questionIndex, game.questions]);
 
-      const { mutate: checkAnswer, isLoading: isChecking } = useMutation({
+      const { mutate: checkAnswer, isPending: isChecking } = useMutation({
         mutationFn: async () => {
           const payload: z.infer<typeof checkAnswerSchema> = {
             questionId: currentQuestion.id,

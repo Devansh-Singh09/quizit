@@ -4,17 +4,21 @@ import { redirect } from 'next/navigation'
 import { title } from 'process'
 import React from 'react'
 
-type Props = {}
+type Props = {
+  searchParams: {
+    topic?:string;
+  };
+};
 export const metadata={
     title:"Quiz | Quizit",
 }
-const QuizPage = async (props: Props) => {
+const QuizPage = async ({searchParams}: Props) => {
     const session = await getAuthSession();
     if (!session?.user) {
       redirect("/");
     }
   return (
-    <QuizCreation/>
+    <QuizCreation topicParam={searchParams.topic?? ""}/>
   )
 }
 
