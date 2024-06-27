@@ -46,7 +46,7 @@ export async function POST(req:Request,res:Response) {
             }
         })
 
-        console.log("hi1");
+        console.log(process.env.API_URL);
         
 
         const {data}=await axios.post(`${process.env.API_URL as string}/api/questions`,{
