@@ -21,7 +21,7 @@ Frontend: React, Next.js, Tailwind CSS
 
 Backend: Node.js, Express.js, Gemini
 
-Database: MongoDB
+Database: MySQL
 
 AI Integration: Gemini API
 
