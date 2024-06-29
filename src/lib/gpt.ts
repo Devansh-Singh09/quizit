@@ -45,7 +45,7 @@ export async function strict_output(
       output_format_prompt += `\nGenerate an array of json, one json for each input element.`;
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro"});
+    const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro"});
 
     const system_role: TextPart = {
         text: system_prompt + output_format_prompt + error_msg
